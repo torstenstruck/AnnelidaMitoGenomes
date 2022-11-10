@@ -3,7 +3,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 
 ## Analytical procedures
 
-1.) In addition to our own mitochondrial genomes, retrieve mitochondrial genomes from NBCI using the following settings as of 17.11.2021 (plus recently published Hydroides and Ophryotrocha genomes, which were not part of the blast database):
+1. In addition to our own mitochondrial genomes, retrieve mitochondrial genomes from NBCI using the following settings as of 17.11.2021 (plus recently published Hydroides and Ophryotrocha genomes, which were not part of the blast database):
 
 	tblastx
 	Stygocapitella subterranea COI-barcode:
@@ -13,7 +13,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	
 	DATA: The mitochondrial genomes used herein can be found in 01_Data/MitochondrialGenomes/Used.
 	
-2.) Retrieve 18S rRNA sequences (at least 1500 bp) from NCBI using MegaBlast and AF412810 to match mitochondrial genomes; the following order was applied:  
+2. Retrieve 18S rRNA sequences (at least 1500 bp) from NCBI using MegaBlast and AF412810 to match mitochondrial genomes; the following order was applied:  
    a) if possible, from the same individual (mostly own sequences, but also for NGS mitochondrial genomes such as Glyceridae and Aphroditiformia)  
    b) from the same species  
    c) from the same genus (only if a and b are not already covered by one species from this genus)  
