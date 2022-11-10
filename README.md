@@ -4,42 +4,42 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ## Analytical procedures
 
 1. In addition to our own mitochondrial genomes, retrieve mitochondrial genomes from NBCI using the following settings as of 17.11.2021 (plus recently published Hydroides and Ophryotrocha genomes, which were not part of the blast database):
-        ```
+```
 	tblastx
 	Stygocapitella subterranea COI-barcode:
 	>A355_03E	TACTTTGTATTTTATTTTGGGGATCTGGTCTGGGTTGTTGGGTGCTTCTATAAGGGTTATTATTCGGGTTGAGCTTAGTCAACCTGGGTCTTGGTTAGGTAGTGATCAGATTTATAATACGGTTGTTACTGCTCACGCTTTGCTTATGATTTTCTTTTTGGTCATGCCTGTGATGATTGGGGGGTTTGGAAATTGACTTATTCCTTTAATGATTTCTAGTCCTGATATGGCTTTTCCTCGTATAAATAATATGAGTTTTTGGTTATTACCTCCTGCTTTAATTTTGTTATTAATATCATCTATTTTAGAGAAGGGTGTTGGTACTGGTTGGACTATTTATCCTCCTCTGTCTAGGTCTTTAGGTCATAGAGGTTCTTCGGTCGATTTGGCTATTTTTTCTTTACATTTGGCTGGGGTTTCTTCTATTTTGGGGGCTGCAAATTTTATTACTACTATTTTTAATATGCGGGCATTAGGGTTGCGGTTGGAACGTGTTCCTTTGTTTATTTGGTCAGTTGTTATTACTGCTATTTTGTTGTTACTTTCTTTACCTGTGTTGGCTGGTGCTATTACTATGTTATTAACTGATCGTAATATTAATACTTCGTTTTTTGATCCTGCTGGTGGTGGTGATCCTATTCTTTTCCAACATCTCTTT
 	limited to records that include: Annelida (taxid:6340), and entrez query: 12000:200000[slen]
 	only one mitochondrial genome per species was kept (the larger one)
-        ```
-        ```
+```
+```
 	DATA: The mitochondrial genomes used herein can be found in 01_Data/MitochondrialGenomes/Used.
-        ```
+```
 2. Retrieve 18S rRNA sequences (at least 1500 bp) from NCBI using MegaBlast and AF412810 to match mitochondrial genomes; the following order was applied:  
      - if possible, from the same individual (mostly own sequences, but also for NGS mitochondrial genomes such as Glyceridae and Aphroditiformia)  
      - from the same species  
      - from the same genus (only if a and b are not already covered by one species from this genus)  
      - Ramisyllys and Trypanosyllis were excluded as they had very divergent sequences making the alignment problematic and introducing unnecessary extreme long branches in the tree
-        ```	
+```
 	DATA: The 18S rRNA sequences used herein can be found in 01_Data/18Sdata.
-        ```	
+```
 3. Annotate mitochondrial genomes using MITOS2 with the following settings:  
      - Reference: RefSeq 63 Metazoa  
      - Genetic Code: 5 Invertebrate  
      - advanced settings: exclude OH and OL search  
      - all mitochondrial genomes were manually investigated to detect problematic issues and possible genes not found by MITOS2  
      - information on overlaps and missing genes saved in SPECIES_NAME_additional_info.txt  
-        ```
+```
 	DATA: The annotated mitochondrial genomes used herein can be found in 02_Annotation/Used.
-        ```
+```
 4. Compile mitochondrial datasets  
      - Compiling structural and sequence information for the mitochondrial genomes into different files running the custom-made shell script "CompileDatasets.sh" as sh CompileDatasets.sh from the top-level folder (the folder where the script is in the test data). This will generate a new folder "03_MitochondrialProperties" with all the relevant information.  
      - Compile the information on intergenic regions using the scripts "CheckFileNames.sh" (to check if the file names are correct and occur only once) and "RetrieveIntergenicParts.sh".  
-         ```
+```
 		NOTES: 
 		#The sequence of each whole mitochondrial genomes as a fasta file with the extension ".fasta" needs to be in the folder "./01_Data/MitochondrialGenomes/Used/".
 		#From the MITOS2 analyses the ".bed"-file of each whole mitochondrial genome needs to be in a folder with the species names (e.g., "Terebratulina_retusa". All these folders need to be in the folder "./02_Annotation/Used/".
 		#Additionally, a text file "ListSpeciesSize.txt" is needed that lists per species the total number of position of each mitochondrial genome separated by a tab. See provided example.
-        ```
+```
 5. Generate reference tree using 18S sequences  
      - Compile information for constraint tree based on:  
           - backbone Annelida: Struck, 2018, Handbook (Fig. 7.2)  
@@ -54,10 +54,10 @@ This repository contains the scripts used to conduct the analyses of annelid mit
           - Sabellida: Tilic et al. (2020) MPE  
           - Sipuncula: Lemer et al. (2015)  
      - Compared species names using  
-        ```
+```
 		"grep '>' < All_MitochondrialGenomes.fas | sort > SpeciesNames.txt" for both datasets of the mitochondrial genomes and 18S rRNA
 		"cmp SpeciesNames.txt ../../01_Data/TreeReconstruction/SpeciesNames.txt"
-        ```
+```
 	
      - Differences in species names were fixed  
      
@@ -68,16 +68,19 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 		perl Aliscore.02.2.pl -i 18S_data_aligned_trimmed.fasta -N -r 1253698754426984236
 		perl ALICUT_V2.3.pl -s
 ```
+
      - Estimate branch length for constraint tree as well as relationships within groups (where appropriate) using IQtree (IQ-TREE/1.6.12-foss-2018b):  
 ```
 		iqtree -s ALICUT_18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Masked_18S -nt AUTO
 		iqtree -s 18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Unmasked_18S -nt AUTO
 ```
+
      - Generating ultrametric trees from both trees using chronos of the APE package in R (script Generate_UltrametricTree.R)  
 ```
 		Notes:
 		# The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.
 ```
+
 6. Determine the different properties for different parts of the genome  
      - Complete mitochondrial data in the folder "03_MitochondrialProperties/WholeGenome"  
           - Open AliView and save as fasta format to ensure that all sequences have the same length (adding - at the end)  
@@ -85,10 +88,12 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 				perl BaCoCa.v1.109.pl -i All_MitochondrialGenomes_alignment.fas
 ```
+
               - Compiled information such as nRCFV values using RCFV_Reader:  
 ```
 				perl NuclRCFVReader.pl All_MitochondrialGenomes_alignment.fas WholeGenome
 ```
+
      - Code structural information in the folder "03_MitochondrialProperties/StructuralInformation"  
           - Let all gene orders start with COX1 at position 1 and align the gene order by including NA for genes in the missing region for incomplete genomes and - for the most likely position in complete genomes as well as by removing duplications and coding them as absent/present in a spearate sheet and count each  
           - Export aligned gene orders with and without tRNAs as tab-delimited text file; then convert it to a fasta file and remove NA and - again  
@@ -103,6 +108,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 			trex -f GeneOrder_aligned_reducedMissingness.fas -t Masked_18S_rerooted.treefile -d GeneOrder_aligned_reducedMissingness.dot -v -s -w -W > GeneOrder_aligned_reducedMissingness.out
 			dot -Tpdf GeneOrder_aligned_reducedMissingness.dot > GeneOrder_aligned_reducedMissingness.pdf
 ```
+
           - The number of the different gene orders were counted using "Count_SequenceOrders.R" for both the gene order with and without tRNA using:  
 ```
 	        Notes:
@@ -110,6 +116,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 		#GeneOrder_aligned_with_tRNA.txt
 		#GeneOrder_aligned_without_tRNA.txt
 ```
+
           - Generate fasta files from the files Counts_wotRNAs.txt and Counts_wotRNAs_MatchedSpecies.txt as well as Counts_wtRNAs.txt and Counts_wtRNAs_MatchedSpecies.txt, respectively  
           - A qMGR analysis were conducted at [qGMR](http://qmgr.hnnu.edu.cn/) using the most common gene order as the ground pattern and without the outgroup providing the two fasta files (Counts_Sequence_Species_wotTRNAs.fas and Counts_Sequence_Species_wtTRNAs.fas in "qMGR_Analyses_outgroup_excluded")  
   		
@@ -124,26 +131,31 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 			DATA: These files can be found in the folder "01_Data/TreeReconstruction/ConstraintTrees_Genes"
 ```
+
           - For each gene (including the rRNA genes, but not tRNAs): Compared species names between dataset and constraint tree using:  
 ```
 			for file in *.fas; do grep '>' < $file | sort | sed 's/>//' > ${file}_SpeciesNames.txt; done 
 			for each dataset: cmp ../../01_Data/TreeReconstruction/ConstraintTrees_Genes/atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt atp6.fas_SpeciesNames.txt
 ```
+
               - fix differences in species names  
               - move to tRNA genes to new folder (e.g., Genes_NotUsed) #Not part of test data provided at DataDryad  
 ```
 			DATA: Gene files are in the folder "03_MitochondrialProperties/CodingGenes/unaligned_data/"
 ```
+
           - Alignment with Mega 11.0.10 using MUSCLE with codons, invertebrate mitochondrial code 5 and default settings to obtain both an amino acid alignment and a nucleotide alignment based on the amino acid one  
           - Alignment with Mega 11.0.10 using MUSCLE without codons and default settings for rRNA genes  
 ```
 			DATA: Alignment files are in the folders "03_MitochondrialProperties/CodingGenes" and "03_MitochondrialProperties/ProteinCodingGenes"			
 ```
+
           For both nucleotides and amino acids:  
           - Generate different supermatrices (only protein_coding, only rRNA, both together) using FASconCAT:  
 ```
 			perl FASconCAT-G_v1.05.pl -s -l
 ```
+
           For each gene & supermatrix:  
           - Reconstruct a tree to obtain tree-based measurements using  
 ```
@@ -157,6 +169,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
 ```
+
           - Compile information such as frequencies and skew values using BaCoCa.v1.109:  
 ```
 			for FILE in *.fasta
@@ -169,6 +182,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
 ```
+
           - Compiled information such as ntsRCFV values using RCFV_Reader:  
 ```
 			perl NuclRCFVReader.pl|ProtRCFVReader.pl FILE_NAME FILE_NAME_Results
@@ -176,6 +190,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
 ```
+
           - Calculate evolutionary distances, LB scores and tip-to-root distance using  
 ```
 			ls *.treefile > TreeNames.txt
@@ -184,6 +199,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
 ```
+
           - Compile the different sequence-based properties generated by BaCoCA, RCFVReader and TreSpEx into a single xlsx-file (see CompiledProperties_Sequence.xlsx in "03_MitochondrialProperties")  
   
 7. Correlation analyses of the mitochondrial data  
@@ -198,6 +214,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/with_tRNAs" and "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/without_tRNAs"
 ```
+
      - Sequence property data: determine correlations between parameters and reduce highly positively and negatively ones to one using CorrelationsSeqProperties_Final.R:  
 ```
 		Notes:
@@ -207,6 +224,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties"
 ```
+
      - Retrieve all groups of correlated parameters "RetrieveCorrelatedGroups.sh":  
           - The file "Correlation_HighPairs.txt" includes the highly correlated pairs and the quotations marks need to be removed from it as well as the first line  
           - Make a list of all parameters left over after cleaning by generating a file "Correlation_HighlyFactors.txt" containing all the column names of the datamatrix reduced to the correlated characters "CompiledSeqProperties_Corr_Clean.txt"  
@@ -219,6 +237,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveCorrelatedGroups"
 ```
+
      - Generate a heatmap using "GenerateHeatmap.R"  
           - Add up the different categories in excel (see "Grouped_factors.xlsx") and export as "PropertiesCorrelatedFactors.txt"  
 ```
@@ -229,6 +248,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveCorrelatedGroups"
 ```
+
      - Retrieve all clustered groups together using "CompileBothGroupsTogether.sh" (in the folder "RetrieveClusteredGroups"):  
           - Besides the "Grouped_factors.txt" generate a file for each grouped cluster ending on ".group" and containing all the categories of the collapsed clusters  
 ```
@@ -240,6 +260,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveClusteredGroups"
 ```
+
      - Repeat step "Generate a heatmap" above using clustered groups instead of correlated groups  
 ```
 		Notes: 
@@ -249,6 +270,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveClusteredGroups"
 ```
+
      - Run "ExplorationDataAnalyses.R" to explore the different molecular properties in more detail (in the folder "ExplorationData")  
 ```
 		Notes:
@@ -258,6 +280,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/ExplorationData"
 ```
+
 8. Phylogenetic Least Square Regression analyses on the molecular properties with the gene orders with and without tRNAs as responses  
      - Calculate the mean RD value for each species for both the gene orders with and without tRNAs from the files ReverseDistance_wtRNA.csv and ReverseDistance_wotRNA.csv  
      - Add these mean values as columns to the "CompiledProperties.csv"  
@@ -274,6 +297,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "04_Macroevolution/02_PhylogeneticLeastSquareRegression/Molecular_data"
 ```
+
 9. Phylogenetic Least Square Regression analyses on the life history data with the gene orders with and without tRNAs as responses  
      - From "LifeHistoryEcology.xlsx", exclude the species from the variables with multiple coding or missing data, add two columns for mean reverse distances for gene orders with and without tRNAs and save each variable as separate csv-files; the remaining ones with all species save as one csv-file including two columns for mean reverse distances for gene orders with and without tRNAs  
      - Run "pgls_with_tRNA.R" and "pgls_without_tRNA.R":   
@@ -286,6 +310,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 	DATA: Files are in the folder "04_Macroevolution/02_PhylogeneticLeastSquareRegression/Life_history"
 ```
+
 10. Analyse the correlation of the Reverse Distance to each other as well as to the phylogenetic placement of the corresponding taxa  
      - Generate a comma-separated list of families assigned to species (see Family_Species_list.csv)  
      - Transform the treefiles of the analyses of the Nuc_supermatrix_partition, AA_supermatrix_partition, PB_Nuc_chain2 and PB_AA_chain1 to equally spaced cladograms where each branch has a length of 1 and save them as .treefile files  
@@ -332,12 +357,14 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	perl FASconCAT-G_v1.05.pl -s -p -p -l > Concatation_log.txt
 	cd ..
 ```
+
 2. Phylogenetic reconstruction using IQtree:  
      - Generate trees  
 ```
 	iqtree -s AA_supermatrix.phy -spp AA_supermatrix_partition.txt -m MFP+MERGE -bb 1000
 	iqtree -s Nuc_supermatrix.phy -spp Nuc_supermatrix_partition.txt -m MFP+MERGE -bb 1000
 ```
+
      - Generate ultrametric trees from these treefiles:  
           - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
           - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
@@ -350,12 +377,14 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "05_Phylogeny/01_Unconstraint"
 ```
+
 3. Constraint phylogenetic reconstruction using IQtree:  
      - Generate trees  
 ```
 	iqtree -s AA_supermatrix.phy -spp AA_supermatrix_partition.txt -m MFP+MERGE -g ConstraintTree_unrooted.tre -o Owenia_fusiformis -pre Constraint_AA
 	iqtree -s Nuc_supermatrix.phy -spp Nuc_supermatrix_partition.txt -m MFP+MERGE -g ConstraintTree_unrooted.tre -o Owenia_fusiformis -pre Constraint_Nuc
 ```
+
      - Generate ultrametric trees from these treefiles:  
           - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
           - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
@@ -368,6 +397,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 		DATA: Files are in the folder "05_Phylogeny/02_Constraint"
 ```
+
 4. Phylogenetic reconstruction using PhyloBayes with two chains per dataset (AA and Nuc):  
      - Generate trees  
         - Example of command lines to be used:  
@@ -376,6 +406,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	tracecomp -x 10000 PB_AA_chain1 PB_AA_chain2
 	bpcomp -x 10000 10 PB_AA_chain1 PB_AA_chain2
 ```
+
      - Generate ultrametric trees from these treefiles:  
           - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
           - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
