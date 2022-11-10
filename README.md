@@ -142,7 +142,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
         ```
         while read gene; do grep $gene < GeneOrder_aligned_without_tRNA.txt | awk '{print $1}' | sort > ${gene}_SpeciesNames.txt; done <GeneNamesAllNuc_without_tRNAs.txt
         while read gene; do grep -v $gene < GeneOrder_aligned_without_tRNA.txt | awk '{print $1}' > ${gene}_SpeciesNames_Not.txt; done <GeneNamesAllNuc_without_tRNAs.txt
-        
+
 	adjust tree and also generate a sorted list of species names within tree
         for each gene: 
 	cmp atp6_SpeciesNames.txt atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt
