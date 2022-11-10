@@ -5,17 +5,17 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 
 1. In addition to our own mitochondrial genomes, retrieve mitochondrial genomes from NBCI using the following settings as of 17.11.2021 (plus recently published Hydroides and Ophryotrocha genomes, which were not part of the blast database):
 
-```
-	tblastx
-	Stygocapitella subterranea COI-barcode:
-	>A355_03E	TACTTTGTATTTTATTTTGGGGATCTGGTCTGGGTTGTTGGGTGCTTCTATAAGGGTTATTATTCGGGTTGAGCTTAGTCAACCTGGGTCTTGGTTAGGTAGTGATCAGATTTATAATACGGTTGTTACTGCTCACGCTTTGCTTATGATTTTCTTTTTGGTCATGCCTGTGATGATTGGGGGGTTTGGAAATTGACTTATTCCTTTAATGATTTCTAGTCCTGATATGGCTTTTCCTCGTATAAATAATATGAGTTTTTGGTTATTACCTCCTGCTTTAATTTTGTTATTAATATCATCTATTTTAGAGAAGGGTGTTGGTACTGGTTGGACTATTTATCCTCCTCTGTCTAGGTCTTTAGGTCATAGAGGTTCTTCGGTCGATTTGGCTATTTTTTCTTTACATTTGGCTGGGGTTTCTTCTATTTTGGGGGCTGCAAATTTTATTACTACTATTTTTAATATGCGGGCATTAGGGTTGCGGTTGGAACGTGTTCCTTTGTTTATTTGGTCAGTTGTTATTACTGCTATTTTGTTGTTACTTTCTTTACCTGTGTTGGCTGGTGCTATTACTATGTTATTAACTGATCGTAATATTAATACTTCGTTTTTTGATCCTGCTGGTGGTGGTGATCCTATTCTTTTCCAACATCTCTTT
-	limited to records that include: Annelida (taxid:6340), and entrez query: 12000:200000[slen]
-	only one mitochondrial genome per species was kept (the larger one)
-```
+        ```
+        tblastx
+        Stygocapitella subterranea COI-barcode:
+        >A355_03E	TACTTTGTATTTTATTTTGGGGATCTGGTCTGGGTTGTTGGGTGCTTCTATAAGGGTTATTATTCGGGTTGAGCTTAGTCAACCTGGGTCTTGGTTAGGTAGTGATCAGATTTATAATACGGTTGTTACTGCTCACGCTTTGCTTATGATTTTCTTTTTGGTCATGCCTGTGATGATTGGGGGGTTTGGAAATTGACTTATTCCTTTAATGATTTCTAGTCCTGATATGGCTTTTCCTCGTATAAATAATATGAGTTTTTGGTTATTACCTCCTGCTTTAATTTTGTTATTAATATCATCTATTTTAGAGAAGGGTGTTGGTACTGGTTGGACTATTTATCCTCCTCTGTCTAGGTCTTTAGGTCATAGAGGTTCTTCGGTCGATTTGGCTATTTTTTCTTTACATTTGGCTGGGGTTTCTTCTATTTTGGGGGCTGCAAATTTTATTACTACTATTTTTAATATGCGGGCATTAGGGTTGCGGTTGGAACGTGTTCCTTTGTTTATTTGGTCAGTTGTTATTACTGCTATTTTGTTGTTACTTTCTTTACCTGTGTTGGCTGGTGCTATTACTATGTTATTAACTGATCGTAATATTAATACTTCGTTTTTTGATCCTGCTGGTGGTGGTGATCCTATTCTTTTCCAACATCTCTTT
+        limited to records that include: Annelida (taxid:6340), and entrez query: 12000:200000[slen]
+        only one mitochondrial genome per species was kept (the larger one)
+        ```
 
-```
-	DATA: The mitochondrial genomes used herein can be found in 01_Data/MitochondrialGenomes/Used.
-```
+        ```
+        DATA: The mitochondrial genomes used herein can be found in 01_Data/MitochondrialGenomes/Used.
+        ```
 
 2. Retrieve 18S rRNA sequences (at least 1500 bp) from NCBI using MegaBlast and AF412810 to match mitochondrial genomes; the following order was applied:  
      - if possible, from the same individual (mostly own sequences, but also for NGS mitochondrial genomes such as Glyceridae and Aphroditiformia)  
@@ -23,9 +23,9 @@ This repository contains the scripts used to conduct the analyses of annelid mit
      - from the same genus (only if a and b are not already covered by one species from this genus)  
      - Ramisyllys and Trypanosyllis were excluded as they had very divergent sequences making the alignment problematic and introducing unnecessary extreme long branches in the tree
 
-```
-	DATA: The 18S rRNA sequences used herein can be found in 01_Data/18Sdata.
-```
+        ```
+        DATA: The 18S rRNA sequences used herein can be found in 01_Data/18Sdata.
+        ```
 
 3. Annotate mitochondrial genomes using MITOS2 with the following settings:  
      - Reference: RefSeq 63 Metazoa  
@@ -34,20 +34,20 @@ This repository contains the scripts used to conduct the analyses of annelid mit
      - all mitochondrial genomes were manually investigated to detect problematic issues and possible genes not found by MITOS2  
      - information on overlaps and missing genes saved in SPECIES_NAME_additional_info.txt  
 
-```
-	DATA: The annotated mitochondrial genomes used herein can be found in 02_Annotation/Used.
-```
+        ```
+        DATA: The annotated mitochondrial genomes used herein can be found in 02_Annotation/Used.
+        ```
 
 4. Compile mitochondrial datasets  
      - Compiling structural and sequence information for the mitochondrial genomes into different files running the custom-made shell script "CompileDatasets.sh" as sh CompileDatasets.sh from the top-level folder (the folder where the script is in the test data). This will generate a new folder "03_MitochondrialProperties" with all the relevant information.  
      - Compile the information on intergenic regions using the scripts "CheckFileNames.sh" (to check if the file names are correct and occur only once) and "RetrieveIntergenicParts.sh".  
 
-```
-		NOTES: 
-		#The sequence of each whole mitochondrial genomes as a fasta file with the extension ".fasta" needs to be in the folder "./01_Data/MitochondrialGenomes/Used/".
-		#From the MITOS2 analyses the ".bed"-file of each whole mitochondrial genome needs to be in a folder with the species names (e.g., "Terebratulina_retusa". All these folders need to be in the folder "./02_Annotation/Used/".
-		#Additionally, a text file "ListSpeciesSize.txt" is needed that lists per species the total number of position of each mitochondrial genome separated by a tab. See provided example.
-```
+        ```
+        NOTES: 
+        The sequence of each whole mitochondrial genomes as a fasta file with the extension ".fasta" needs to be in the folder "./01_Data/MitochondrialGenomes/Used/".
+        From the MITOS2 analyses the ".bed"-file of each whole mitochondrial genome needs to be in a folder with the species names (e.g., "Terebratulina_retusa". All these folders need to be in the folder "./02_Annotation/Used/".
+        Additionally, a text file "ListSpeciesSize.txt" is needed that lists per species the total number of position of each mitochondrial genome separated by a tab. See provided example.
+        ```
 
 5. Generate reference tree using 18S sequences  
      - Compile information for constraint tree based on:  
@@ -64,34 +64,35 @@ This repository contains the scripts used to conduct the analyses of annelid mit
           - Sipuncula: Lemer et al. (2015)  
      - Compared species names using  
 
-```
-		"grep '>' < All_MitochondrialGenomes.fas | sort > SpeciesNames.txt" for both datasets of the mitochondrial genomes and 18S rRNA
-		"cmp SpeciesNames.txt ../../01_Data/TreeReconstruction/SpeciesNames.txt"
-```
+          ```
+          for both datasets of the mitochondrial genomes and 18S rRNA:
+          grep '>' < All_MitochondrialGenomes.fas | sort > SpeciesNames.txt 
+          cmp SpeciesNames.txt ../../01_Data/TreeReconstruction/SpeciesNames.txt
+          ```
 	
      - Differences in species names were fixed  
      - Alignment with MAFFT/7.470, --auto and --reorder  
      - Trimmed sequence ends using AliView, so that less than 10 sequences had no information on the first and last column  
      - Mask potentially non-homologous positions using AliScore and AliCut  
 
-```
-		perl Aliscore.02.2.pl -i 18S_data_aligned_trimmed.fasta -N -r 1253698754426984236
-		perl ALICUT_V2.3.pl -s
-```
+          ```
+          perl Aliscore.02.2.pl -i 18S_data_aligned_trimmed.fasta -N -r 1253698754426984236
+          perl ALICUT_V2.3.pl -s
+          ```
 
      - Estimate branch length for constraint tree as well as relationships within groups (where appropriate) using IQtree (IQ-TREE/1.6.12-foss-2018b):  
 
-```
-		iqtree -s ALICUT_18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Masked_18S -nt AUTO
-		iqtree -s 18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Unmasked_18S -nt AUTO
-```
+          ```
+          iqtree -s ALICUT_18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Masked_18S -nt AUTO
+          iqtree -s 18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Unmasked_18S -nt AUTO
+          ```
 
      - Generating ultrametric trees from both trees using chronos of the APE package in R (script Generate_UltrametricTree.R)  
 
-```
-		Notes:
-		# The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.
-```
+          ```
+          Notes:
+	  The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.
+          ```
 
 6. Determine the different properties for different parts of the genome  
      - Complete mitochondrial data in the folder "03_MitochondrialProperties/WholeGenome"  
