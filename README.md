@@ -109,22 +109,22 @@ This repository contains the scripts used to conduct the analyses of annelid mit
           ```
 
      - Code structural information in the folder "03_MitochondrialProperties/StructuralInformation"  
-          - Let all gene orders start with COX1 at position 1 and align the gene order by including NA for genes in the missing region for incomplete genomes and - for the most likely position in complete genomes as well as by removing duplications and coding them as absent/present in a spearate sheet and count each  
-          - Export aligned gene orders with and without tRNAs as tab-delimited text file; then convert it to a fasta file and remove NA and - again  
-          - Upload .fas file with and without tRNAs to [CRex](http://pacosy.informatik.uni-leipzig.de/crex/form)  
-          - Run the analyses with default settings (except for "remove duplicates) for datasets determining "common interval", "breakpoints" and "reversal distance"  
-          - Copy the distance matrices for each dataset and setting into a separate excel sheet (DistanceMatricesGeneOrder.xlsx in "03_MitochondrialProperties")  
-          - For the TRex analyses the species were sorted based on their phylogenetic affiliation and the dataset without tRNAs has been modified in the following way to reduce missingness:  
-              - Missing (-) and lacking genes (NA) have been included in accordance to the close relatives and then after the analyses removed again as losses or without further consideration  
-          - Export aligned and filled gene order without tRNAs as tab-delimited text file and convert to fasta file  
-          - Run the TRex-Analyses using the 18S tree (Masked_18S_rerooted.treefile) and GeneOrder_aligned_reducedMissingness.fas (both are in "TreeREx_Analyses"):  
+       - Let all gene orders start with COX1 at position 1 and align the gene order by including NA for genes in the missing region for incomplete genomes and - for the most likely position in complete genomes as well as by removing duplications and coding them as absent/present in a spearate sheet and count each  
+       - Export aligned gene orders with and without tRNAs as tab-delimited text file; then convert it to a fasta file and remove NA and - again  
+       - Upload .fas file with and without tRNAs to [CRex](http://pacosy.informatik.uni-leipzig.de/crex/form)  
+       - Run the analyses with default settings (except for "remove duplicates) for datasets determining "common interval", "breakpoints" and "reversal distance"  
+       - Copy the distance matrices for each dataset and setting into a separate excel sheet (DistanceMatricesGeneOrder.xlsx in "03_MitochondrialProperties")  
+       - For the TRex analyses the species were sorted based on their phylogenetic affiliation and the dataset without tRNAs has been modified in the following way to reduce missingness:  
+            - Missing (-) and lacking genes (NA) have been included in accordance to the close relatives and then after the analyses removed again as losses or without further consideration  
+       - Export aligned and filled gene order without tRNAs as tab-delimited text file and convert to fasta file  
+       - Run the TRex-Analyses using the 18S tree (Masked_18S_rerooted.treefile) and GeneOrder_aligned_reducedMissingness.fas (both are in "TreeREx_Analyses"):  
 
-          ```
-          trex -f GeneOrder_aligned_reducedMissingness.fas -t Masked_18S_rerooted.treefile -d GeneOrder_aligned_reducedMissingness.dot -v -s -w -W > GeneOrder_aligned_reducedMissingness.out
-          dot -Tpdf GeneOrder_aligned_reducedMissingness.dot > GeneOrder_aligned_reducedMissingness.pdf
-          ```
+	```
+	trex -f GeneOrder_aligned_reducedMissingness.fas -t Masked_18S_rerooted.treefile -d GeneOrder_aligned_reducedMissingness.dot -v -s -w -W > GeneOrder_aligned_reducedMissingness.out
+	dot -Tpdf GeneOrder_aligned_reducedMissingness.dot > GeneOrder_aligned_reducedMissingness.pdf
+	```
 
-          - The number of the different gene orders were counted using "Count_SequenceOrders.R" for both the gene order with and without tRNA using:  
+       - The number of the different gene orders were counted using "Count_SequenceOrders.R" for both the gene order with and without tRNA using:  
 
         ```
         NOTES: 
@@ -174,18 +174,15 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	```
 
      - For both nucleotides and amino acids:  
-     - Generate different supermatrices (only protein_coding, only rRNA, both together) using FASconCAT:  
+       - Generate different supermatrices (only protein_coding, only rRNA, both together) using FASconCAT:  
               
 	```
 	perl FASconCAT-G_v1.05.pl -s -l
 	```
 
      - For each gene & supermatrix:  
-     - Reconstruct a tree to obtain tree-based measurements using  
+       - Reconstruct a tree to obtain tree-based measurements using  
 
- 	```
-	perl FASconCAT-G_v1.05.pl -s -l
-	```
 	```
         for file in *.fasta; 
         do 
@@ -239,50 +236,57 @@ This repository contains the scripts used to conduct the analyses of annelid mit
   
 7. Correlation analyses of the mitochondrial data  
      - Gene order distance data with and without tRNA included: Determine the correlation of the three matrices to each other using CorrelationsGeneOrder.r  
-```
-		Notes:
-		#the following files are needed:
-		#Breakpoints_wtRNA.csv
-		#CommonInterval_wtRNA.csv
-		#ReverseDistance_wtRNA.csv
-```
-```
-		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/with_tRNAs" and "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/without_tRNAs"
-```
+	```
+	Notes:
+	The following files are needed:
+	Breakpoints_wtRNA.csv
+	CommonInterval_wtRNA.csv
+	ReverseDistance_wtRNA.csv
+	```
+	
+	```
+	DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/with_tRNAs" and "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/without_tRNAs"
+	```
 
      - Sequence property data: determine correlations between parameters and reduce highly positively and negatively ones to one using CorrelationsSeqProperties_Final.R:  
-```
-		Notes:
-		#files needed:
-		#CompiledProperties.csv
-```
-```
-		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties"
-```
+
+	```
+	Notes:
+	Files needed:
+	CompiledProperties.csv
+	```
+
+	```
+	DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties"
+	```
 
      - Retrieve all groups of correlated parameters "RetrieveCorrelatedGroups.sh":  
           - The file "Correlation_HighPairs.txt" includes the highly correlated pairs and the quotations marks need to be removed from it as well as the first line  
           - Make a list of all parameters left over after cleaning by generating a file "Correlation_HighlyFactors.txt" containing all the column names of the datamatrix reduced to the correlated characters "CompiledSeqProperties_Corr_Clean.txt"  
-```
-	        Notes:
-		#the following files are needed:
-		#Correlation_HighlyFactors.txt
-		#Correlation_HighPairs.txt
-```
-```
-		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveCorrelatedGroups"
-```
+
+	```
+	Notes:
+	The following files are needed:
+	Correlation_HighlyFactors.txt
+	Correlation_HighPairs.txt
+	```
+
+	```
+	DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveCorrelatedGroups"
+	```
 
      - Generate a heatmap using "GenerateHeatmap.R"  
           - Add up the different categories in excel (see "Grouped_factors.xlsx") and export as "PropertiesCorrelatedFactors.txt"  
-```
-		Notes:
-		#the following files are needed:
-		#PropertiesCorrelatedFactors.txt
-```
-```
-		DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveCorrelatedGroups"
-```
+
+	```
+	Notes:
+	The following files are needed:
+	PropertiesCorrelatedFactors.txt
+	```
+
+	```
+	DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveCorrelatedGroups"
+	```
 
      - Retrieve all clustered groups together using "CompileBothGroupsTogether.sh" (in the folder "RetrieveClusteredGroups"):  
           - Besides the "Grouped_factors.txt" generate a file for each grouped cluster ending on ".group" and containing all the categories of the collapsed clusters  
