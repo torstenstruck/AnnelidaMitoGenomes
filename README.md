@@ -151,10 +151,10 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	```
 	DATA: These files can be found in the folder "01_Data/TreeReconstruction/ConstraintTrees_Genes"
 	```
+  
+          - For each gene (including the rRNA genes, but not tRNAs): Compared species names between dataset and constraint tree using:
 
-        - For each gene (including the rRNA genes, but not tRNAs): Compared species names between dataset and constraint tree using:  
-
-        ```
+	```
 	for file in *.fas; do grep '>' < $file | sort | sed 's/>//' > ${file}_SpeciesNames.txt; done 
 	for each dataset: cmp ../../01_Data/TreeReconstruction/ConstraintTrees_Genes/atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt atp6.fas_SpeciesNames.txt
 	```
