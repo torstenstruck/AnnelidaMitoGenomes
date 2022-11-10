@@ -126,12 +126,12 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 
           - The number of the different gene orders were counted using "Count_SequenceOrders.R" for both the gene order with and without tRNA using:  
 
-          ```
-	  Notes:
-	  The following files are needed:
-	  GeneOrder_aligned_with_tRNA.txt
-	  GeneOrder_aligned_without_tRNA.txt
-          ```
+        ```
+        NOTES: 
+        The following files are needed:
+	GeneOrder_aligned_with_tRNA.txt
+	GeneOrder_aligned_without_tRNA.txt
+        ```
 	  
 	  - Generate fasta files from the files Counts_wotRNAs.txt and Counts_wotRNAs_MatchedSpecies.txt as well as Counts_wtRNAs.txt and Counts_wtRNAs_MatchedSpecies.txt, respectively  
           - A qMGR analysis were conducted at [qGMR](http://qmgr.hnnu.edu.cn/) using the most common gene order as the ground pattern and without the outgroup providing the two fasta files (Counts_Sequence_Species_wotTRNAs.fas and Counts_Sequence_Species_wtTRNAs.fas in "qMGR_Analyses_outgroup_excluded")  
