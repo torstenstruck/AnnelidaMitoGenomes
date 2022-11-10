@@ -89,8 +89,8 @@ This repository contains the scripts used to conduct the analyses of annelid mit
      - Generating ultrametric trees from both trees using chronos of the APE package in R (script Generate_UltrametricTree.R)  
 
           ```
-          Notes:
-	  The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.
+          Notes:  
+	  The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.  
           ```
 	  
 6. Determine the different properties for different parts of the genome  
