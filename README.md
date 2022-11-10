@@ -1,5 +1,5 @@
 # AnnelidaMitoGenomes
-This repository contains the scripts used to conduct the analyses of annelid mitochondrial genomes. Below is a step-by-step description on how the scripts can be used as they have been used in the paper itself. All data to be used and to repeat these analyses can be found in the zipped folder "TestData_Compiling" here at GitHub as well as at DataDryad. The folder contains a folder structure that works for these analytical procedures. It also contains all the scripts used herein. 
+This repository contains the scripts used to conduct the analyses of annelid mitochondrial genomes. Below is a step-by-step description on how the scripts can be used as they have been used in the paper itself. All data to be used and to repeat these analyses can be found in the zipped folder "[TestData_Compiling]()" here at GitHub as well as at DataDryad. The folder contains a folder structure that works for these analytical procedures. It also contains all the scripts used herein. 
 
 ## Analytical procedures
 
