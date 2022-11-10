@@ -159,15 +159,15 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	for each dataset: cmp ../../01_Data/TreeReconstruction/ConstraintTrees_Genes/atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt atp6.fas_SpeciesNames.txt
 	```
 
-          - fix differences in species names  
-          - move to tRNA genes to new folder (e.g., Genes_NotUsed) #Not part of test data provided at DataDryad  
+     - fix differences in species names  
+     - move to tRNA genes to new folder (e.g., Genes_NotUsed) #Not part of test data provided at DataDryad  
            
-        ```
+	```
 	DATA: Gene files are in the folder "03_MitochondrialProperties/CodingGenes/unaligned_data/"
 	```
 
-          - Alignment with Mega 11.0.10 using MUSCLE with codons, invertebrate mitochondrial code 5 and default settings to obtain both an amino acid alignment and a nucleotide alignment based on the amino acid one  
-          - Alignment with Mega 11.0.10 using MUSCLE without codons and default settings for rRNA genes  
+     - Alignment with Mega 11.0.10 using MUSCLE with codons, invertebrate mitochondrial code 5 and default settings to obtain both an amino acid alignment and a nucleotide alignment based on the amino acid one  
+     - Alignment with Mega 11.0.10 using MUSCLE without codons and default settings for rRNA genes  
 
         ```
         DATA: Alignment files are in the folders "03_MitochondrialProperties/CodingGenes" and "03_MitochondrialProperties/ProteinCodingGenes"			
