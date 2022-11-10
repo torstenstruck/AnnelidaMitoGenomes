@@ -12,7 +12,6 @@ This repository contains the scripts used to conduct the analyses of annelid mit
         limited to records that include: Annelida (taxid:6340), and entrez query: 12000:200000[slen]
         only one mitochondrial genome per species was kept (the larger one)
         ```
-
         ```
         DATA: The mitochondrial genomes used herein can be found in 01_Data/MitochondrialGenomes/Used.
         ```
