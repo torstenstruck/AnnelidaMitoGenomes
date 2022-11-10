@@ -49,7 +49,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
           - Orbiniida: Struck et al., 2015 (Fig. 1)  
           - Eunicida: Struck et al., 2015 (Fig. 1)  
           - Phyllodocida: Tilic et al., 2022 (Fig. 2 ML)  
-	  - Aphroditiformia: Zhang Y, Sun J, Rouse GW, Wiklund H, Pleijel F, Watanabe HK, Chen C, Qian P-Y, Qiu J-W. 2018. Phylogeny, evolution and mitochondrial gene order rearrangement in scale worms (Aphroditiformia, Annelida). Molecular Phylogenetics and Evolution 125:220-231. (Fig. 2)  
+          - Aphroditiformia: Zhang Y, Sun J, Rouse GW, Wiklund H, Pleijel F, Watanabe HK, Chen C, Qian P-Y, Qiu J-W. 2018. Phylogeny, evolution and mitochondrial gene order rearrangement in scale worms (Aphroditiformia, Annelida). Molecular Phylogenetics and Evolution 125:220-231. (Fig. 2)  
           - Protodriliformia: Struck et al., 2015 (Fig. 1)  
           - Sabellida: Tilic et al. (2020) MPE  
           - Sipuncula: Lemer et al. (2015)  
