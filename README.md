@@ -329,63 +329,70 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	```
 
 8. Phylogenetic Least Square Regression analyses on the molecular properties with the gene orders with and without tRNAs as responses  
-     - Calculate the mean RD value for each species for both the gene orders with and without tRNAs from the files ReverseDistance_wtRNA.csv and ReverseDistance_wotRNA.csv  
-     - Add these mean values as columns to the "CompiledProperties.csv"  
-     - Run "pgls_all.R" using additionally "GeneOrder_aligned_reducedMissingness.tsv", "GeneOrder_aligned_with_tRNA.tsv" and "Masked_18S_ultrametric_rerooted.treefile"  
-          - Before the analyses of combined molecular properties against the RD values with and without tRNA determine the best-fitting properties shared and independently based on the three major categories frequency-based, rate-based and structure-based (see Combined_sign_predictors.xlsx)  
-```
-		Notes:
-		#the following files are needed:
-		#Masked_18S_ultrametric_rerooted.treefile
-		#CompiledProperties.csv
-		#GeneOrder_aligned_with_tRNA.tsv
-		#GeneOrder_aligned_reducedMissingness.tsv
-```
-```
-		DATA: Files are in the folder "04_Macroevolution/02_PhylogeneticLeastSquareRegression/Molecular_data"
-```
+  - Calculate the mean RD value for each species for both the gene orders with and without tRNAs from the files ReverseDistance_wtRNA.csv and ReverseDistance_wotRNA.csv  
+  - Add these mean values as columns to the "CompiledProperties.csv"  
+  - Run "pgls_all.R" using additionally "GeneOrder_aligned_reducedMissingness.tsv", "GeneOrder_aligned_with_tRNA.tsv" and "Masked_18S_ultrametric_rerooted.treefile"  
+    - Before the analyses of combined molecular properties against the RD values with and without tRNA determine the best-fitting properties shared and independently based on the three major categories frequency-based, rate-based and structure-based (see Combined_sign_predictors.xlsx)
+
+	```
+	Notes:
+	The following files are needed:
+	Masked_18S_ultrametric_rerooted.treefile
+	CompiledProperties.csv
+	GeneOrder_aligned_with_tRNA.tsv
+	GeneOrder_aligned_reducedMissingness.tsv
+	```
+
+	```
+	DATA: Files are in the folder "04_Macroevolution/02_PhylogeneticLeastSquareRegression/Molecular_data"
+	```
 
 9. Phylogenetic Least Square Regression analyses on the life history data with the gene orders with and without tRNAs as responses  
-     - From "LifeHistoryEcology.xlsx", exclude the species from the variables with multiple coding or missing data, add two columns for mean reverse distances for gene orders with and without tRNAs and save each variable as separate csv-files; the remaining ones with all species save as one csv-file including two columns for mean reverse distances for gene orders with and without tRNAs  
-     - Run "pgls_with_tRNA.R" and "pgls_without_tRNA.R":   
-```
+  - From "LifeHistoryEcology.xlsx", exclude the species from the variables with multiple coding or missing data, add two columns for mean reverse distances for gene orders with and without tRNAs and save each variable as separate csv-files; the remaining ones with all species save as one csv-file including two columns for mean reverse distances for gene orders with and without tRNAs  
+  - Run "pgls_with_tRNA.R" and "pgls_without_tRNA.R":   
+
+	```
 	Notes:
-	#files needed:
-	#Masked_18S_ultrametric_rerooted.treefile
-	#the different *.csv files
-```
-```
+	Files needed:
+	Masked_18S_ultrametric_rerooted.treefile
+	The different *.csv files
+	```
+
+	```
 	DATA: Files are in the folder "04_Macroevolution/02_PhylogeneticLeastSquareRegression/Life_history"
-```
+	```
 
 10. Analyse the correlation of the Reverse Distance to each other as well as to the phylogenetic placement of the corresponding taxa  
-     - Generate a comma-separated list of families assigned to species (see Family_Species_list.csv)  
-     - Transform the treefiles of the analyses of the Nuc_supermatrix_partition, AA_supermatrix_partition, PB_Nuc_chain2 and PB_AA_chain1 to equally spaced cladograms where each branch has a length of 1 and save them as .treefile files  
-     - Save the same treefiles as a cladogram without any branch length as .txt files  
-```
+  - Generate a comma-separated list of families assigned to species (see Family_Species_list.csv)  
+  - Transform the treefiles of the analyses of the Nuc_supermatrix_partition, AA_supermatrix_partition, PB_Nuc_chain2 and PB_AA_chain1 to equally spaced cladograms where each branch has a length of 1 and save them as .treefile files  
+  - Save the same treefiles as a cladogram without any branch length as .txt files  
+
+	```
 	Notes:
-	#the following files are needed
-	#without_tRNAs/ReverseDistance_wotRNA.csv
-	#with_tRNAs/ReverseDistance_wtRNA.csv
-	#Family_Species_list.csv
-	#Nuc_supermatrix_partition_rooted_cladogram.txt.treefile
-	#PB_Nuc_chain2_rooted_cladogram.treefile
-	#Masked_18S_rooted_cladogram.treefile
-	#AA_supermatrix_partition_rooted_cladogram.txt.treefile
-	#PB_AA_chain1_rooted_cladogram.treefile"
-	#Nuc_supermatrix_partition_rooted_cladogram.txt
-	#PB_Nuc_chain2_rooted_cladogram.txt
-	#Masked_18S_rooted_cladogram.txt
-	#AA_supermatrix_partition_rooted_cladogram.txt
-	#PB_AA_chain1_rooted_cladogram.txt
-```
-```
+	The following files are needed
+	Without_tRNAs/ReverseDistance_wotRNA.csv
+	With_tRNAs/ReverseDistance_wtRNA.csv
+	Family_Species_list.csv
+	Nuc_supermatrix_partition_rooted_cladogram.txt.treefile
+	PB_Nuc_chain2_rooted_cladogram.treefile
+	Masked_18S_rooted_cladogram.treefile
+	AA_supermatrix_partition_rooted_cladogram.txt.treefile
+	PB_AA_chain1_rooted_cladogram.treefile"
+	Nuc_supermatrix_partition_rooted_cladogram.txt
+	PB_Nuc_chain2_rooted_cladogram.txt
+	Masked_18S_rooted_cladogram.txt
+	AA_supermatrix_partition_rooted_cladogram.txt
+	PB_AA_chain1_rooted_cladogram.txt
+	```
+
+	```
 	DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder"
-```
+	```
 
 ## Phylogenetic reconstruction:
 1. Masking and concatenation running the following commands in the folders "05_Phylogeny/00_Data/Nucleotides" and "05_Phylogeny/00_Data/AminoAcids":  
-```
+
+	```
 	for FILE in *.fasta; 
 	do
 		perl Aliscore.02.2.pl -N -r 200000000000 -i $FILE; 
@@ -400,69 +407,79 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	do
 		mv $FILE Masked/
 	done
+	
 	cd Masked/
 	perl FASconCAT-G_v1.05.pl -s -p -p -l > Concatation_log.txt
 	cd ..
-```
+	```
 
 2. Phylogenetic reconstruction using IQtree:  
-     - Generate trees  
-```
+  - Generate trees  
+
+	```
 	iqtree -s AA_supermatrix.phy -spp AA_supermatrix_partition.txt -m MFP+MERGE -bb 1000
 	iqtree -s Nuc_supermatrix.phy -spp Nuc_supermatrix_partition.txt -m MFP+MERGE -bb 1000
-```
+	```
 
-     - Generate ultrametric trees from these treefiles:  
-          - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
-          - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
-```
-		Notes:
-		#the following files are needed:
-		#Nuc_supermatrix_partition_rooted.txt.treefile
-		#AA_supermatrix_partition_rooted.txt.treefile
-```
-```
-		DATA: Files are in the folder "05_Phylogeny/01_Unconstraint"
-```
+  - Generate ultrametric trees from these treefiles:  
+    - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
+    - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
+
+	```
+	Notes:
+	The following files are needed:
+	Nuc_supermatrix_partition_rooted.txt.treefile
+	AA_supermatrix_partition_rooted.txt.treefile
+	```
+
+	```
+	DATA: Files are in the folder "05_Phylogeny/01_Unconstraint"
+	```
 
 3. Constraint phylogenetic reconstruction using IQtree:  
-     - Generate trees  
-```
+  - Generate trees  
+
+	```
 	iqtree -s AA_supermatrix.phy -spp AA_supermatrix_partition.txt -m MFP+MERGE -g ConstraintTree_unrooted.tre -o Owenia_fusiformis -pre Constraint_AA
 	iqtree -s Nuc_supermatrix.phy -spp Nuc_supermatrix_partition.txt -m MFP+MERGE -g ConstraintTree_unrooted.tre -o Owenia_fusiformis -pre Constraint_Nuc
-```
+	```
 
-     - Generate ultrametric trees from these treefiles:  
-          - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
-          - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
-```
-		Notes:
-		#the following files are needed:
-		#Constraint_Nuc_rooted.treefile
-		#Constraint_AA_rooted.treefile
-```
-```
-		DATA: Files are in the folder "05_Phylogeny/02_Constraint"
-```
+  - Generate ultrametric trees from these treefiles:  
+    - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
+    - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
+
+	```
+	Notes:
+	The following files are needed:
+	Constraint_Nuc_rooted.treefile
+	Constraint_AA_rooted.treefile
+	```
+
+	```
+	DATA: Files are in the folder "05_Phylogeny/02_Constraint"
+	```
 
 4. Phylogenetic reconstruction using PhyloBayes with two chains per dataset (AA and Nuc):  
-     - Generate trees  
-        - Example of command lines to be used:  
-```
+  - Generate trees  
+    - Example of command lines to be used:  
+
+	```
 	pb_mpi -d AA_supermatrix.phy -cat -gtr -x 1 40000 PB_AA_chain2
 	tracecomp -x 10000 PB_AA_chain1 PB_AA_chain2
 	bpcomp -x 10000 10 PB_AA_chain1 PB_AA_chain2
-```
+	```
 
-     - Generate ultrametric trees from these treefiles:  
-          - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
-          - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
-```
-		Notes:
-		#the following files are needed:
-		#PB_Nuc_chain2.con.rooted.tre
-		#PB_AA_chain1.con.rooted.tre
-```
-```
-		DATA: Files are in the folder "05_Phylogeny/03_PhyloBayes"
-```
+  - Generate ultrametric trees from these treefiles:  
+    - Reroot the trees at one of the outgroups, double the branch length leading to that outgroup and shorten the one leading to all other taxa to 0.00000000001 to mimic an unrooted tree despite being rooted; save rooted treefile  
+    - Generate ultrametric trees using "AA_Generate_UltrametricTree.R" and "Nuc_Generate_UltrametricTree.R":  
+
+	```
+	Notes:
+	The following files are needed:
+	PB_Nuc_chain2.con.rooted.tre
+	PB_AA_chain1.con.rooted.tre
+	```
+
+	```
+	DATA: Files are in the folder "05_Phylogeny/03_PhyloBayes"
+	```
