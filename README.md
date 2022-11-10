@@ -15,25 +15,25 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	DATA: The mitochondrial genomes used herein can be found in 01_Data/MitochondrialGenomes/Used.
 ```
 2. Retrieve 18S rRNA sequences (at least 1500 bp) from NCBI using MegaBlast and AF412810 to match mitochondrial genomes; the following order was applied:  
-     a) if possible, from the same individual (mostly own sequences, but also for NGS mitochondrial genomes such as Glyceridae and Aphroditiformia)  
-     b) from the same species  
-     c) from the same genus (only if a and b are not already covered by one species from this genus)  
-     d) Ramisyllys and Trypanosyllis were excluded as they had very divergent sequences making the alignment problematic and introducing unnecessary extreme long branches in the tree
+     - if possible, from the same individual (mostly own sequences, but also for NGS mitochondrial genomes such as Glyceridae and Aphroditiformia)  
+     - from the same species  
+     - from the same genus (only if a and b are not already covered by one species from this genus)  
+     - Ramisyllys and Trypanosyllis were excluded as they had very divergent sequences making the alignment problematic and introducing unnecessary extreme long branches in the tree
 ```	
 	DATA: The 18S rRNA sequences used herein can be found in 01_Data/18Sdata.
 ```	
 3. Annotate mitochondrial genomes using MITOS2 with the following settings:  
-     a) Reference: RefSeq 63 Metazoa  
-     b) Genetic Code: 5 Invertebrate  
-     c) advanced settings: exclude OH and OL search  
-     d) all mitochondrial genomes were manually investigated to detect problematic issues and possible genes not found by MITOS2  
-     e) information on overlaps and missing genes saved in SPECIES_NAME_additional_info.txt  
+     - Reference: RefSeq 63 Metazoa  
+     - Genetic Code: 5 Invertebrate  
+     - advanced settings: exclude OH and OL search  
+     - all mitochondrial genomes were manually investigated to detect problematic issues and possible genes not found by MITOS2  
+     - information on overlaps and missing genes saved in SPECIES_NAME_additional_info.txt  
 ```
 	DATA: The annotated mitochondrial genomes used herein can be found in 02_Annotation/Used.
 ```
 4. Compile mitochondrial datasets  
-     a) Compiling structural and sequence information for the mitochondrial genomes into different files running the custom-made shell script "CompileDatasets.sh" as sh CompileDatasets.sh from the top-level folder (the folder where the script is in the test data). This will generate a new folder "03_MitochondrialProperties" with all the relevant information.  
-     b) Compile the information on intergenic regions using the scripts "CheckFileNames.sh" (to check if the file names are correct and occur only once) and "RetrieveIntergenicParts.sh".  
+     - Compiling structural and sequence information for the mitochondrial genomes into different files running the custom-made shell script "CompileDatasets.sh" as sh CompileDatasets.sh from the top-level folder (the folder where the script is in the test data). This will generate a new folder "03_MitochondrialProperties" with all the relevant information.  
+     - Compile the information on intergenic regions using the scripts "CheckFileNames.sh" (to check if the file names are correct and occur only once) and "RetrieveIntergenicParts.sh".  
      ```
 		NOTES: 
 		#The sequence of each whole mitochondrial genomes as a fasta file with the extension ".fasta" needs to be in the folder "./01_Data/MitochondrialGenomes/Used/".
@@ -41,36 +41,37 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 		#Additionally, a text file "ListSpeciesSize.txt" is needed that lists per species the total number of position of each mitochondrial genome separated by a tab. See provided example.
 	```
 5. Generate reference tree using 18S sequences  
-     a) Compile information for constraint tree based on:  
-          I) backbone Annelida: Struck, 2018, Handbook (Fig. 7.2)  
-          II) Clitellata: Erseus et al. 2020, Zooligica Scripta & Anderson et al. (2017) BMC Evol. Biol.  
-          III) Hirudinea: Phillips et al. 2019, GBE  
-          IV) Terebellida: Stiller et al. 2020  
-          V) Orbiniida: Struck et al., 2015 (Fig. 1)  
-          VI) Eunicida: Struck et al., 2015 (Fig. 1)  
-          VII) Phyllodocida: Tilic et al., 2022 (Fig. 2 ML) & Aphroditiformia: Zhang Y, Sun J, Rouse GW, Wiklund H, Pleijel F, Watanabe HK, Chen C, Qian P-Y, Qiu J-W. 2018. Phylogeny, evolution and mitochondrial gene order rearrangement in scale worms (Aphroditiformia, Annelida). Molecular Phylogenetics and Evolution 125:220-231. (Fig. 2)  
-          VIII) Protodriliformia: Struck et al., 2015 (Fig. 1)  
-          IX) Sabellida: Tilic et al. (2020) MPE  
-          X) Sipuncula: Lemer et al. (2015)  
-     b) Compared species names using  
+     - Compile information for constraint tree based on:  
+          - backbone Annelida: Struck, 2018, Handbook (Fig. 7.2)  
+          - Clitellata: Erseus et al. 2020, Zooligica Scripta & Anderson et al. (2017) BMC Evol. Biol.  
+          - Hirudinea: Phillips et al. 2019, GBE  
+          - Terebellida: Stiller et al. 2020  
+          - Orbiniida: Struck et al., 2015 (Fig. 1)  
+          - Eunicida: Struck et al., 2015 (Fig. 1)  
+          - Phyllodocida: Tilic et al., 2022 (Fig. 2 ML)  
+	  - Aphroditiformia: Zhang Y, Sun J, Rouse GW, Wiklund H, Pleijel F, Watanabe HK, Chen C, Qian P-Y, Qiu J-W. 2018. Phylogeny, evolution and mitochondrial gene order rearrangement in scale worms (Aphroditiformia, Annelida). Molecular Phylogenetics and Evolution 125:220-231. (Fig. 2)  
+          - Protodriliformia: Struck et al., 2015 (Fig. 1)  
+          - Sabellida: Tilic et al. (2020) MPE  
+          - Sipuncula: Lemer et al. (2015)  
+     - Compared species names using  
 ```
 		"grep '>' < All_MitochondrialGenomes.fas | sort > SpeciesNames.txt" for both datasets of the mitochondrial genomes and 18S rRNA
 		"cmp SpeciesNames.txt ../../01_Data/TreeReconstruction/SpeciesNames.txt"
 ```
           Differences in species names were fixed
-     c) Alignment with MAFFT/7.470, --auto and --reorder  
-     d) Trimmed sequence ends using AliView, so that less than 10 sequences had no information on the first and last column  
-     e) Mask potentially non-homologous positions using AliScore and AliCut  
+     - Alignment with MAFFT/7.470, --auto and --reorder  
+     - Trimmed sequence ends using AliView, so that less than 10 sequences had no information on the first and last column  
+     - Mask potentially non-homologous positions using AliScore and AliCut  
 ```
 		perl Aliscore.02.2.pl -i 18S_data_aligned_trimmed.fasta -N -r 1253698754426984236
 		perl ALICUT_V2.3.pl -s
 ```
-     f) Estimate branch length for constraint tree as well as relationships within groups (where appropriate) using IQtree (IQ-TREE/1.6.12-foss-2018b):  
+     - Estimate branch length for constraint tree as well as relationships within groups (where appropriate) using IQtree (IQ-TREE/1.6.12-foss-2018b):  
 ```
 		iqtree -s ALICUT_18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Masked_18S -nt AUTO
 		iqtree -s 18S_data_aligned_trimmed.fasta -m MFP+LM -g ConstraintTree.tre -o Lineus_viridis -pre Unmasked_18S -nt AUTO
 ```
-     g) Generating ultrametric trees from both trees using chronos of the APE package in R (script Generate_UltrametricTree.R)  
+     - Generating ultrametric trees from both trees using chronos of the APE package in R (script Generate_UltrametricTree.R)  
 ```
 		Notes:
 		# The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.
