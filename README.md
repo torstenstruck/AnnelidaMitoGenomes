@@ -43,7 +43,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
   - Compile the information on intergenic regions using the scripts "CheckFileNames.sh" (to check if the file names are correct and occur only once) and "RetrieveIntergenicParts.sh".  
 
 	```
-	NOTES: 
+	Notes: 
 	The sequence of each whole mitochondrial genomes as a fasta file with the extension ".fasta" needs to be in the folder "./01_Data/MitochondrialGenomes/Used/".
 	From the MITOS2 analyses the ".bed"-file of each whole mitochondrial genome needs to be in a folder with the species names (e.g., "Terebratulina_retusa". All these folders need to be in the folder "./02_Annotation/Used/".
 	Additionally, a text file "ListSpeciesSize.txt" is needed that lists per species the total number of position of each mitochondrial genome separated by a tab. See provided example.
@@ -90,7 +90,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
   - Generating ultrametric trees from both trees using chronos of the APE package in R (script Generate_UltrametricTree.R)  
 
 	```
-	NOTES: 
+	Notes: 
 	The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.
 	```
 	  
@@ -128,7 +128,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
     - The number of the different gene orders were counted using "Count_SequenceOrders.R" for both the gene order with and without tRNA using:  
 
 	```
-	NOTES: 
+	Notes: 
 	The following files are needed:
 	GeneOrder_aligned_with_tRNA.txt
 	GeneOrder_aligned_without_tRNA.txt
