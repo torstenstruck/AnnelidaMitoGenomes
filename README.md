@@ -19,9 +19,9 @@ This repository contains the scripts used to conduct the analyses of annelid mit
      b) from the same species  
      c) from the same genus (only if a and b are not already covered by one species from this genus)  
      d) Ramisyllys and Trypanosyllis were excluded as they had very divergent sequences making the alignment problematic and introducing unnecessary extreme long branches in the tree
-	
+```	
 	DATA: The 18S rRNA sequences used herein can be found in 01_Data/18Sdata.
-	
+```	
 3. Annotate mitochondrial genomes using MITOS2 with the following settings:  
      a) Reference: RefSeq 63 Metazoa
      b) Genetic Code: 5 Invertebrate
