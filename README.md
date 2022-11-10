@@ -23,11 +23,11 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	DATA: The 18S rRNA sequences used herein can be found in 01_Data/18Sdata.
 ```	
 3. Annotate mitochondrial genomes using MITOS2 with the following settings:  
-     a) Reference: RefSeq 63 Metazoa
-     b) Genetic Code: 5 Invertebrate
-     c) advanced settings: exclude OH and OL search
-     d) all mitochondrial genomes were manually investigated to detect problematic issues and possible genes not found by MITOS2
-     e) information on overlaps and missing genes saved in SPECIES_NAME_additional_info.txt
+     a) Reference: RefSeq 63 Metazoa  
+     b) Genetic Code: 5 Invertebrate  
+     c) advanced settings: exclude OH and OL search  
+     d) all mitochondrial genomes were manually investigated to detect problematic issues and possible genes not found by MITOS2  
+     e) information on overlaps and missing genes saved in SPECIES_NAME_additional_info.txt  
 ```
 	DATA: The annotated mitochondrial genomes used herein can be found in 02_Annotation/Used.
 ```
