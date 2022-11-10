@@ -1,5 +1,5 @@
 # AnnelidaMitoGenomes
-This repository contains the scripts used to conduct the analyses of annelid mitochondrial genomes. Below is a step-by-step description on how the scripts can be used as they have been used in the paper itself. All data to be used and to repeat these analyses can be found in the zipped folder "[TestData_Compiling]()" here at GitHub as well as at DataDryad. The folder contains a folder structure that works for these analytical procedures. It also contains all the scripts used herein. 
+This repository contains the scripts used to conduct the analyses of annelid mitochondrial genomes. Below is a step-by-step description on how the scripts can be used as they have been used in the paper itself. All data to be used and to repeat these analyses can be found in the zipped folder "[TestData_Compiling](https://github.com/torstenstruck/AnnelidaMitoGenomes/blob/main/TestData_Compiling.zip)" here at GitHub as well as at DataDryad. The folder contains a folder structure that works for these analytical procedures. It also contains all the scripts used herein. 
 
 ## Analytical procedures
 
@@ -23,6 +23,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	DATA: The 18S rRNA sequences used herein can be found in 01_Data/18Sdata.
 	
 3.) Annotate mitochondrial genomes using MITOS2 with the following settings:
+
 	a) Reference: RefSeq 63 Metazoa
 	b) Genetic Code: 5 Invertebrate
 	c) advanced settings: exclude OH and OL search
@@ -32,6 +33,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	DATA: The annotated mitochondrial genomes used herein can be found in 02_Annotation/Used.
 	
 4.) Compile mitochondrial datasets
+
 	a) Compiling structural and sequence information for the mitochondrial genomes into different files running the custom-made shell script "CompileDatasets.sh" as sh CompileDatasets.sh from the top-level folder (the folder where the script is in the test data). This will generate a new folder "03_MitochondrialProperties" with all the relevant information.
 	b) Compile the information on intergenic regions using the scripts "CheckFileNames.sh" (to check if the file names are correct and occur only once) and "RetrieveIntergenicParts.sh". 
 		NOTES: 
