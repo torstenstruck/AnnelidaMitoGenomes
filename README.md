@@ -93,19 +93,21 @@ This repository contains the scripts used to conduct the analyses of annelid mit
           Notes:
 	  The following files are needed Masked_18S.treefile and Unmasked_18S.treefile in the same folder as the script.
           ```
-
+	  
 6. Determine the different properties for different parts of the genome  
      - Complete mitochondrial data in the folder "03_MitochondrialProperties/WholeGenome"  
           - Open AliView and save as fasta format to ensure that all sequences have the same length (adding - at the end)  
           - Compiled information such as frequencies and skew values using BaCoCa.v1.109:  
-```
-				perl BaCoCa.v1.109.pl -i All_MitochondrialGenomes_alignment.fas
-```
 
-              - Compiled information such as nRCFV values using RCFV_Reader:  
-```
-				perl NuclRCFVReader.pl All_MitochondrialGenomes_alignment.fas WholeGenome
-```
+          ```
+          perl BaCoCa.v1.109.pl -i All_MitochondrialGenomes_alignment.fas
+          ```
+
+          - Compiled information such as nRCFV values using RCFV_Reader:  
+
+          ```
+          perl NuclRCFVReader.pl All_MitochondrialGenomes_alignment.fas WholeGenome
+          ```
 
      - Code structural information in the folder "03_MitochondrialProperties/StructuralInformation"  
           - Let all gene orders start with COX1 at position 1 and align the gene order by including NA for genes in the missing region for incomplete genomes and - for the most likely position in complete genomes as well as by removing duplications and coding them as absent/present in a spearate sheet and count each  
@@ -117,105 +119,123 @@ This repository contains the scripts used to conduct the analyses of annelid mit
               - Missing (-) and lacking genes (NA) have been included in accordance to the close relatives and then after the analyses removed again as losses or without further consideration  
           - Export aligned and filled gene order without tRNAs as tab-delimited text file and convert to fasta file  
           - Run the TRex-Analyses using the 18S tree (Masked_18S_rerooted.treefile) and GeneOrder_aligned_reducedMissingness.fas (both are in "TreeREx_Analyses"):  
-```
-			trex -f GeneOrder_aligned_reducedMissingness.fas -t Masked_18S_rerooted.treefile -d GeneOrder_aligned_reducedMissingness.dot -v -s -w -W > GeneOrder_aligned_reducedMissingness.out
-			dot -Tpdf GeneOrder_aligned_reducedMissingness.dot > GeneOrder_aligned_reducedMissingness.pdf
-```
+
+          ```
+          trex -f GeneOrder_aligned_reducedMissingness.fas -t Masked_18S_rerooted.treefile -d GeneOrder_aligned_reducedMissingness.dot -v -s -w -W > GeneOrder_aligned_reducedMissingness.out
+          dot -Tpdf GeneOrder_aligned_reducedMissingness.dot > GeneOrder_aligned_reducedMissingness.pdf
+          ```
 
           - The number of the different gene orders were counted using "Count_SequenceOrders.R" for both the gene order with and without tRNA using:  
-```
-	        Notes:
-		#The following files are needed:
-		#GeneOrder_aligned_with_tRNA.txt
-		#GeneOrder_aligned_without_tRNA.txt
-```
 
-          - Generate fasta files from the files Counts_wotRNAs.txt and Counts_wotRNAs_MatchedSpecies.txt as well as Counts_wtRNAs.txt and Counts_wtRNAs_MatchedSpecies.txt, respectively  
+          ```
+	  Notes:
+	  The following files are needed:
+	  GeneOrder_aligned_with_tRNA.txt
+	  GeneOrder_aligned_without_tRNA.txt
+          ```
+	  
+	  - Generate fasta files from the files Counts_wotRNAs.txt and Counts_wotRNAs_MatchedSpecies.txt as well as Counts_wtRNAs.txt and Counts_wtRNAs_MatchedSpecies.txt, respectively  
           - A qMGR analysis were conducted at [qGMR](http://qmgr.hnnu.edu.cn/) using the most common gene order as the ground pattern and without the outgroup providing the two fasta files (Counts_Sequence_Species_wotTRNAs.fas and Counts_Sequence_Species_wtTRNAs.fas in "qMGR_Analyses_outgroup_excluded")  
   		
      - protein-coding and rRNA genes  
-          - For each protein- and rRNA-coding gene determine the species lacking in the dataset, adjust constraint tree and compare species names from tree:  
-```
-			while read gene; do grep $gene < GeneOrder_aligned_without_tRNA.txt | awk '{print $1}' | sort > ${gene}_SpeciesNames.txt; done <GeneNamesAllNuc_without_tRNAs.txt
-			while read gene; do grep -v $gene < GeneOrder_aligned_without_tRNA.txt | awk '{print $1}' > ${gene}_SpeciesNames_Not.txt; done <GeneNamesAllNuc_without_tRNAs.txt
-			adjust tree and also generate a sorted list of species names within tree
-			for each gene: cmp atp6_SpeciesNames.txt atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt
-```
-```
-			DATA: These files can be found in the folder "01_Data/TreeReconstruction/ConstraintTrees_Genes"
-```
+          - For each protein- and rRNA-coding gene determine the species lacking in the dataset, adjust constraint tree and compare species names from tree:
+  
+          ```
+          while read gene; do grep $gene < GeneOrder_aligned_without_tRNA.txt | awk '{print $1}' | sort > ${gene}_SpeciesNames.txt; done <GeneNamesAllNuc_without_tRNAs.txt
+          while read gene; do grep -v $gene < GeneOrder_aligned_without_tRNA.txt | awk '{print $1}' > ${gene}_SpeciesNames_Not.txt; done <GeneNamesAllNuc_without_tRNAs.txt
+          
+	  adjust tree and also generate a sorted list of species names within tree
+          for each gene: 
+	  cmp atp6_SpeciesNames.txt atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt
+	  ```
+	  
+	  ```
+	  DATA: These files can be found in the folder "01_Data/TreeReconstruction/ConstraintTrees_Genes"
+	  ```
 
           - For each gene (including the rRNA genes, but not tRNAs): Compared species names between dataset and constraint tree using:  
-```
-			for file in *.fas; do grep '>' < $file | sort | sed 's/>//' > ${file}_SpeciesNames.txt; done 
-			for each dataset: cmp ../../01_Data/TreeReconstruction/ConstraintTrees_Genes/atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt atp6.fas_SpeciesNames.txt
-```
 
-              - fix differences in species names  
-              - move to tRNA genes to new folder (e.g., Genes_NotUsed) #Not part of test data provided at DataDryad  
-```
-			DATA: Gene files are in the folder "03_MitochondrialProperties/CodingGenes/unaligned_data/"
-```
+          ```
+	  for file in *.fas; do grep '>' < $file | sort | sed 's/>//' > ${file}_SpeciesNames.txt; done 
+	  for each dataset: cmp ../../01_Data/TreeReconstruction/ConstraintTrees_Genes/atp6_aligned.fasta_ConstraintTree.tre_SpeciesNames.txt atp6.fas_SpeciesNames.txt
+	  ```
+
+          - fix differences in species names  
+          - move to tRNA genes to new folder (e.g., Genes_NotUsed) #Not part of test data provided at DataDryad  
+           
+          ```
+	  DATA: Gene files are in the folder "03_MitochondrialProperties/CodingGenes/unaligned_data/"
+	  ```
 
           - Alignment with Mega 11.0.10 using MUSCLE with codons, invertebrate mitochondrial code 5 and default settings to obtain both an amino acid alignment and a nucleotide alignment based on the amino acid one  
           - Alignment with Mega 11.0.10 using MUSCLE without codons and default settings for rRNA genes  
-```
-			DATA: Alignment files are in the folders "03_MitochondrialProperties/CodingGenes" and "03_MitochondrialProperties/ProteinCodingGenes"			
-```
 
-          For both nucleotides and amino acids:  
-          - Generate different supermatrices (only protein_coding, only rRNA, both together) using FASconCAT:  
-```
-			perl FASconCAT-G_v1.05.pl -s -l
-```
+          ```
+	  DATA: Alignment files are in the folders "03_MitochondrialProperties/CodingGenes" and "03_MitochondrialProperties/ProteinCodingGenes"			
+	  ```
 
-          For each gene & supermatrix:  
-          - Reconstruct a tree to obtain tree-based measurements using  
-```
-			for file in *.fasta; 
-			do 
-				iqtree -s ${file} -m MFP -g ${file}_ConstraintTree.tre -pre ${file} -nt AUTO
-				or
-				iqtree -s ${file} -m MFP+MERGE -g ${file}_ConstraintTree.tre -spp ${file}_partitions.txt -pre ${file} -nt AUTO
-			done
-```
-```
-			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
-```
+          - For both nucleotides and amino acids:  
+              - Generate different supermatrices (only protein_coding, only rRNA, both together) using FASconCAT:  
+              
+          ```
+	  perl FASconCAT-G_v1.05.pl -s -l
+	  ```
+
+          - For each gene & supermatrix:  
+              - Reconstruct a tree to obtain tree-based measurements using  
+
+          ```
+          for file in *.fasta; 
+          do 
+              iqtree -s ${file} -m MFP -g ${file}_ConstraintTree.tre -pre ${file} -nt AUTO
+              or
+              iqtree -s ${file} -m MFP+MERGE -g ${file}_ConstraintTree.tre -spp ${file}_partitions.txt -pre ${file} -nt AUTO
+          done
+          ```
+
+          ```
+          DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
+          ```
 
           - Compile information such as frequencies and skew values using BaCoCa.v1.109:  
-```
-			for FILE in *.fasta
-			do
-				tr '[:lower:]' '[:upper:]' < ${FILE} > ${FILE}.fas
-				perl BaCoCa.v1.109.pl -i ${FILE}.fas
-				mv BaCoCa_Results ${FILE}_BaCoCa_Results
-			done
-```
-```
-			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
-```
+
+          ```
+          for FILE in *.fasta
+          do
+              tr '[:lower:]' '[:upper:]' < ${FILE} > ${FILE}.fas
+	      perl BaCoCa.v1.109.pl -i ${FILE}.fas
+	      mv BaCoCa_Results ${FILE}_BaCoCa_Results
+          done
+          ```
+
+          ```
+          DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
+          ```
 
           - Compiled information such as ntsRCFV values using RCFV_Reader:  
-```
-			perl NuclRCFVReader.pl|ProtRCFVReader.pl FILE_NAME FILE_NAME_Results
-```
-```
-			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
-```
+
+          ```
+          perl NuclRCFVReader.pl|ProtRCFVReader.pl FILE_NAME FILE_NAME_Results
+          ```
+
+          ```
+          DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
+          ```
 
           - Calculate evolutionary distances, LB scores and tip-to-root distance using  
-```
-			ls *.treefile > TreeNames.txt
-			perl TreSpEx.v1.2.pl -fun e -ipt TreeNames.txt -tf SpeciesNames.txt
-```
-```
-			DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
-```
+
+          ```
+          ls *.treefile > TreeNames.txt
+          perl TreSpEx.v1.2.pl -fun e -ipt TreeNames.txt -tf SpeciesNames.txt
+          ```
+
+          ```
+          DATA: Files are in the folder "03_MitochondrialProperties/CodingGenes/" and "03_MitochondrialProperties/ProteinCodingGenes/"
+          ```
 
           - Compile the different sequence-based properties generated by BaCoCA, RCFVReader and TreSpEx into a single xlsx-file (see CompiledProperties_Sequence.xlsx in "03_MitochondrialProperties")  
   
-7. Correlation analyses of the mitochondrial data  
+7. Correla tion analyses of the mitochondrial data  
      - Gene order distance data with and without tRNA included: Determine the correlation of the three matrices to each other using CorrelationsGeneOrder.r  
 ```
 		Notes:
