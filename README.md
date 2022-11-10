@@ -31,7 +31,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 ```
 	DATA: The annotated mitochondrial genomes used herein can be found in 02_Annotation/Used.
 ```
-4. Compile mitochondrial datasets
+4. Compile mitochondrial datasets  
      a) Compiling structural and sequence information for the mitochondrial genomes into different files running the custom-made shell script "CompileDatasets.sh" as sh CompileDatasets.sh from the top-level folder (the folder where the script is in the test data). This will generate a new folder "03_MitochondrialProperties" with all the relevant information.  
      b) Compile the information on intergenic regions using the scripts "CheckFileNames.sh" (to check if the file names are correct and occur only once) and "RetrieveIntergenicParts.sh".  
      ```
@@ -40,7 +40,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 		#From the MITOS2 analyses the ".bed"-file of each whole mitochondrial genome needs to be in a folder with the species names (e.g., "Terebratulina_retusa". All these folders need to be in the folder "./02_Annotation/Used/".
 		#Additionally, a text file "ListSpeciesSize.txt" is needed that lists per species the total number of position of each mitochondrial genome separated by a tab. See provided example.
 	```
-5. Generate reference tree using 18S sequences
+5. Generate reference tree using 18S sequences  
      a) Compile information for constraint tree based on:  
           I) backbone Annelida: Struck, 2018, Handbook (Fig. 7.2)  
           II) Clitellata: Erseus et al. 2020, Zooligica Scripta & Anderson et al. (2017) BMC Evol. Biol.  
