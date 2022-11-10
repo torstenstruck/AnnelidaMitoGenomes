@@ -59,7 +59,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 		"cmp SpeciesNames.txt ../../01_Data/TreeReconstruction/SpeciesNames.txt"
 ```
 	
-     - Differences in species names were fixed  
+     * Differences in species names were fixed  
      
      - Alignment with MAFFT/7.470, --auto and --reorder  
      - Trimmed sequence ends using AliView, so that less than 10 sequences had no information on the first and last column  
