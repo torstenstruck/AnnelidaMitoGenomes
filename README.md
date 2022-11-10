@@ -176,14 +176,17 @@ This repository contains the scripts used to conduct the analyses of annelid mit
      - For both nucleotides and amino acids:  
      - Generate different supermatrices (only protein_coding, only rRNA, both together) using FASconCAT:  
               
-        ```
+	```
 	perl FASconCAT-G_v1.05.pl -s -l
 	```
 
      - For each gene & supermatrix:  
      - Reconstruct a tree to obtain tree-based measurements using  
 
-        ```
+ 	```
+	perl FASconCAT-G_v1.05.pl -s -l
+	```
+       ```
         for file in *.fasta; 
         do 
             iqtree -s ${file} -m MFP -g ${file}_ConstraintTree.tre -pre ${file} -nt AUTO
