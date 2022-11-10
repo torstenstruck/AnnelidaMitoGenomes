@@ -137,7 +137,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
           - A qMGR analysis were conducted at [qGMR](http://qmgr.hnnu.edu.cn/) using the most common gene order as the ground pattern and without the outgroup providing the two fasta files (Counts_Sequence_Species_wotTRNAs.fas and Counts_Sequence_Species_wtTRNAs.fas in "qMGR_Analyses_outgroup_excluded")  
   		
      - protein-coding and rRNA genes  
-          - For each protein- and rRNA-coding gene determine the species lacking in the dataset, adjust constraint tree and compare species names from tree:
+     - For each protein- and rRNA-coding gene determine the species lacking in the dataset, adjust constraint tree and compare species names from tree:
 
 	```
 	while read gene; do grep $gene < GeneOrder_aligned_without_tRNA.txt | awk '{print $1}' | sort > ${gene}_SpeciesNames.txt; done <GeneNamesAllNuc_without_tRNAs.txt
@@ -152,7 +152,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	DATA: These files can be found in the folder "01_Data/TreeReconstruction/ConstraintTrees_Genes"
 	```
   
-          - For each gene (including the rRNA genes, but not tRNAs): Compared species names between dataset and constraint tree using:
+     - For each gene (including the rRNA genes, but not tRNAs): Compared species names between dataset and constraint tree using:
 
 	```
 	for file in *.fas; do grep '>' < $file | sort | sed 's/>//' > ${file}_SpeciesNames.txt; done 
