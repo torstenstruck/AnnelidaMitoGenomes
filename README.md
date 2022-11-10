@@ -205,7 +205,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 		tr '[:lower:]' '[:upper:]' < ${FILE} > ${FILE}.fas
 		perl BaCoCa.v1.109.pl -i ${FILE}.fas
 		mv BaCoCa_Results ${FILE}_BaCoCa_Results
-		done
+	done
 	```
 
 	```
@@ -316,7 +316,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	DATA: Files are in the folder "04_Macroevolution/01_CorrelationAnalyses/GeneOrder/SequenceProperties/RetrieveClusteredGroups"
 	```
 
-   Run "ExplorationDataAnalyses.R" to explore the different molecular properties in more detail (in the folder "ExplorationData")  
+  - Run "ExplorationDataAnalyses.R" to explore the different molecular properties in more detail (in the folder "ExplorationData")  
 
 	```
 	Notes:
