@@ -14,6 +14,7 @@ This repository contains the scripts used to conduct the analyses of annelid mit
 	DATA: The mitochondrial genomes used herein can be found in 01_Data/MitochondrialGenomes/Used.
 	
 2.) Retrieve 18S rRNA sequences (at least 1500 bp) from NCBI using MegaBlast and AF412810 to match mitochondrial genomes; the following order was applied:
+
 	a) if possible, from the same individual (mostly own sequences, but also for NGS mitochondrial genomes such as Glyceridae and Aphroditiformia)
 	b) from the same species
 	c) from the same genus (only if a and b are not already covered by one species from this genus)
